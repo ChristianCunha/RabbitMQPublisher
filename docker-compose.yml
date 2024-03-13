@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  rabbitmqpublisher:
+    image: ${DOCKER_REGISTRY-}rabbitmqpublisher
+    build:
+      context: .
+      dockerfile: RabbitMQPublisher/Dockerfile
+    networks:
+        - local
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: ccunha 
+      RABBITMQ_DEFAULT_PASS: '#00Teste01'
+    networks:
+        - local
+networks:
+  local:
